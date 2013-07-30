@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>aleat</title>
+</head>
+
+<body>
+    <h1>aleat: algorithmic music generator</h1>
+
+    <form action='http://l01c.ouvaton.org/cgi-bin/musicpad.cgi' name=musicpad method=post>
+        <ul>
+            <li><label for='tempo'>Tempo:</label>
+                <input type='text' id='tempo' value='120'></li>
+            <li><label for='duration'>Duration (in cycles):</label>
+                <input type='text' id='duration' value='6'></li>
+            <li><label for='algorithm'>Algorithm:</label>
+                <select id='algorithm'>
+                    <option value='markov'>Markov Chain</option>
+                    <option value='boring'>Repetitive</option>
+                </select></li>
+            <input type='submit' value='Generate' id='genButton'>
+        </ul>
+        <textarea cols=1 rows=1 id='inputBox' name='string' class='field2' style='visibility: hidden'></textarea>
+        <input type=hidden name=btnaction value=''>
+        <!--
+        <input type=hidden name=btnaction value=''>
+        <input type="button" value="Generate" id='genButton' class="submit">
+        -->
+    </form>
+
+    <script src='lib/jquery-1.10.2.js'></script>
+    <script src='aleat.js'></script>
+    <script src='aleat-test-interface.js'></script>
+</body>
+</html>

@@ -9,7 +9,7 @@
     <h1>aleat: algorithmic music generator</h1>
 
     <form action='http://l01c.ouvaton.org/cgi-bin/musicpad.cgi' name=musicpad method=post>
-        <ul>
+        <ul style='list-style-type: none'>
             <li><label for='tempo'>Tempo:</label>
                 <input type='text' id='tempo' value='120'></li>
             <li><label for='duration'>Duration (in cycles):</label>
@@ -19,15 +19,17 @@
                     <option value='markov'>Markov Chain</option>
                     <option value='boring'>Repetitive</option>
                 </select></li>
-            <li><label for='scale'>Scale:</label>
+            <li class='scales'><label for='scale'>Scale:</label>
                 <select id='scale'>
                     <option value='mPenta'>Minor Pentatonic</option>
+                    <option value='majorFolk'>Major Folk</option>
                     <option value='majPenta'>Major Pentatonic</option>
                 </select></li>
             <li><label for='style'>Style:</label>
                 <select id='style'>
                     <option value='lead'>Lead</option>
                     <option value='bass'>Bass</option>
+                    <option value='crazy'>Crazy</option>
                 </select></li>
             <li><label for='parts'># of Parts:</label>
                 <select id='parts'>

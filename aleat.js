@@ -51,6 +51,18 @@ var aleat = {
                 [30, 20, 20, 25, 5]  //state 4 (total 100%)
             ],
             scaleRow: [0, 2, 4, 7, 9]
+        },
+        majorFolk: {
+            grid: [
+                [30, 22, 9, 0, 20, 5, 14], //state 0 (total 100%)
+                [35, 19, 24, 6, 10, 0, 6], //state 0 (total 100%)
+                [14, 15, 22, 10, 25, 14, 0], //state 0 (total 100%)
+                [0, 0, 50, 7, 29, 14, 0], //state 0 (total 100%)
+                [23, 3, 17, 3, 34, 17, 3], //state 0 (total 100%)
+                [7, 16, 0, 5, 31, 23, 18], //state 0 (total 100%)
+                [56, 17, 0, 0, 9, 9, 9] //state 0 (total 100%)
+            ],
+            scaleRow: [0, 2, 4, 5, 7, 9, 11]
         }
     },
     //Playing styles
@@ -60,6 +72,9 @@ var aleat = {
         },
         bass: {
             noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '2', '2', '2']
+        },
+        crazy: {
+            noteValues: ['5', '5', '5', '5', '7', '7', '7', '7', '17', '17', '17', '17', '3', '3']
         }
     }
 
@@ -144,7 +159,6 @@ function genMarkov() {
         _song.push('|');
         aleat.parts--;
     }
-
     return _song;
 }
 

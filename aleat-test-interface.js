@@ -5,6 +5,15 @@
         submitto('generate', 'http://l01c.ouvaton.org/cgi-bin/musicpad.cgi')
     });
 
+    $('#algorithm').change(function() {
+        if ($('#algorithm').val() === 'boring') {
+            $('.scales').css('display', 'none');
+        }
+        if ($('#algorithm').val() === 'markov') {
+            $('.scales').css('display', 'block');
+        }
+    })
+
     function populateSettings() {
         var songSubmit;
         aleat.tempo = $('#tempo').val();
@@ -21,6 +30,7 @@
             songSubmit = genSong(genMarkov);
         }
         $('#inputBox').html(songSubmit);
+
     }
 
     function submitto(action,url)

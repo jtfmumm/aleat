@@ -19,6 +19,45 @@
                     <option value='markov'>Markov Chain</option>
                     <option value='boring'>Repetitive</option>
                 </select></li>
+            <li><label for='scale'>Scale:</label>
+                <select id='scale'>
+                    <option value='mPenta'>Minor Pentatonic</option>
+                    <option value='majPenta'>Major Pentatonic</option>
+                </select></li>
+            <li><label for='style'>Style:</label>
+                <select id='style'>
+                    <option value='lead'>Lead</option>
+                    <option value='bass'>Bass</option>
+                </select></li>
+            <li><label for='parts'># of Parts:</label>
+                <select id='parts'>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4' selected>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                </select></li>
+            <li><label for='rootTone'>Root Note:</label>
+                <select id='rootTone'>
+                    <option value='0'>c</option>
+                    <option value='1'>c#</option>
+                    <option value='2'>d</option>
+                    <option value='3'>d#</option>
+                    <option value='4'>e</option>
+                    <option value='5'>f</option>
+                    <option value='6'>f#</option>
+                    <option value='7'>g</option>
+                    <option value='8'>g#</option>
+                    <option value='9'>a</option>
+                    <option value='10'>a#</option>
+                    <option value='11'>b</option>
+                </select></li>
+
             <input type='submit' value='Generate' id='genButton'>
         </ul>
         <textarea cols=1 rows=1 id='inputBox' name='string' class='field2' style='visibility: hidden'></textarea>

@@ -7,8 +7,12 @@
 
     function populateSettings() {
         var songSubmit;
-        alea.tempo = $('#tempo').val();
-        alea.duration = $('#duration').val();
+        aleat.tempo = $('#tempo').val();
+        aleat.duration = $('#duration').val();
+        aleat.scale = $('#scale').val();
+        aleat.rootTone = $('#rootTone').val();
+        aleat.style = $('#style').val();
+        aleat.parts = $('#parts').val();
         if ($('#algorithm').val() === 'markov') {
             songSubmit = genSong(genMarkov);
         } else if ($('#algorithm').val() === 'boring') {

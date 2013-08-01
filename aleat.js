@@ -5,7 +5,7 @@
 //    <jtfmumm{at}gmail{dot}com>
 //    http://github.com/jtfmumm/aleat
 
-function test() {alert('hi');}
+//  Functions should eventually be namespaced to aleat.
 
 var aleat = {
     //General settings with defaults
@@ -14,11 +14,11 @@ var aleat = {
     twelveTones: ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
     transposition: ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
     rootTone: 0,
-    parts: 1,
+    parts: 4,
     scale: 'mPenta',
     style: 'lead',
 
-    //Style settings with defaults
+    //Initial scale and style settings
     noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '16', '16', '2'],
     markovGrid: [
         [5, 30, 20, 20, 25], //state 0 (total 100%)
@@ -29,7 +29,7 @@ var aleat = {
     ],
     scaleRow: [0, 3, 5, 7, 10],
 
-    //Scale defaults
+    //Scale presets
     scales: {
         //scale-grid combinations
         mPenta: {
@@ -54,18 +54,19 @@ var aleat = {
         },
         majorFolk: {
             grid: [
-                [30, 22, 9, 0, 20, 5, 14], //state 0 (total 100%)
-                [35, 19, 24, 6, 10, 0, 6], //state 0 (total 100%)
-                [14, 15, 22, 10, 25, 14, 0], //state 0 (total 100%)
-                [0, 0, 50, 7, 29, 14, 0], //state 0 (total 100%)
-                [23, 3, 17, 3, 34, 17, 3], //state 0 (total 100%)
-                [7, 16, 0, 5, 31, 23, 18], //state 0 (total 100%)
-                [56, 17, 0, 0, 9, 9, 9] //state 0 (total 100%)
+                [30, 22, 9, 0, 20, 5, 14],      //state 0 (total 100%)
+                [35, 19, 24, 6, 10, 0, 6],      //state 1 (total 100%)
+                [14, 15, 22, 10, 25, 14, 0],    //state 2 (total 100%)
+                [0, 0, 50, 7, 29, 14, 0],       //state 3 (total 100%)
+                [23, 3, 17, 3, 34, 17, 3],      //state 4 (total 100%)
+                [7, 16, 0, 5, 31, 23, 18],      //state 5 (total 100%)
+                [56, 17, 0, 0, 9, 9, 9]         //state 6 (total 100%)
             ],
             scaleRow: [0, 2, 4, 5, 7, 9, 11]
         }
     },
-    //Playing styles
+
+    //Playing style presets
     styles: {
         lead: {
             noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '16', '16', '2']
@@ -80,6 +81,7 @@ var aleat = {
 
 };
 
+//Change settings based on user input
 function applyStyle() {
     var i, n,
         scale = aleat.scale,
@@ -102,11 +104,11 @@ function applyStyle() {
     aleat.noteValues = aleat.styles[style].noteValues.slice();
 }
 
+//Main song generation code
 function genSong(algo) {
     var song = [],
         songFinal;
 
-    //Main routine
     applyStyle();
     song = algo();
     song.unshift(addTempo());
@@ -114,8 +116,8 @@ function genSong(algo) {
     return songFinal = song.join(' ');
 }
 
-//Generates a series of c-notes with varying note values
-function genBoring() {
+//Generates a sequence of the same note with varying note values
+function genRep() {
     var i,
         rolledNoteValue,
         curNoteValue = 0,
@@ -136,7 +138,7 @@ function genBoring() {
     return _song;
 }
 
-//Generates a song using a supplied Markov grid and scale (scaleRow).
+//Generates a song using a supplied Markov grid and scale (scaleRow)
 function genMarkov() {
     var i,
         markovState = 0,
@@ -160,10 +162,6 @@ function genMarkov() {
         aleat.parts--;
     }
     return _song;
-}
-
-function genTwelveTone() {
-    var i;
 }
 
 function addTempo() {
@@ -192,10 +190,15 @@ function changeMarkovState(markovState) {
     return i;
 }
 
-//utilities
+//
+// UTILITIES
+//
 function rand(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
 }
+
+function test() {alert('hi');}
+
 
 
 

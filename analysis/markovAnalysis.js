@@ -1,4 +1,10 @@
-load('RhinoFileReader.js');
+//    (c) 2013 john mumm
+//    <jtfmumm{at}gmail{dot}com>
+//    http://github.com/jtfmumm/aleat
+
+//  Generate Markov grid from input song analysis
+
+load('RhinoFileUtilities.js');
 
 (function markovAnalyze() {
     var i,

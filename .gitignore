@@ -2,3 +2,6 @@ error.log
 misc.txt
 .idea/
 MarkovChainer.pde
+*.swp
+*.swo
+*.old

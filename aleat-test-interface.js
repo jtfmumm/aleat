@@ -1,12 +1,14 @@
+//  A browser interface for testing aleat.
+
 
 (function testRun() {
     $('#genButton').click(function() {
         populateSettings();
-        submitto('generate', 'http://l01c.ouvaton.org/cgi-bin/musicpad.cgi')
+        submitto('generate', '/cgi-bin/musicpad.cgi')
     });
 
     $('#algorithm').change(function() {
-        if ($('#algorithm').val() === 'boring') {
+        if ($('#algorithm').val() === 'rep') {
             $('.scales').css('display', 'none');
         }
         if ($('#algorithm').val() === 'markov') {
@@ -24,8 +26,8 @@
         aleat.parts = $('#parts').val();
         if ($('#algorithm').val() === 'markov') {
             songSubmit = genSong(genMarkov);
-        } else if ($('#algorithm').val() === 'boring') {
-            songSubmit = genSong(genBoring);
+        } else if ($('#algorithm').val() === 'rep') {
+            songSubmit = genSong(genRep);
         } else {
             songSubmit = genSong(genMarkov);
         }

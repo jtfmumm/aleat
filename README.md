@@ -17,8 +17,9 @@ parameters for generation, but these will be expanded to include:
 
 ##Instructions
 
-aleat.genSong() will return a string encoding a song based on the current settings.
-The parameter sent to aleat.genSong() specifies the algorithm to be used.
+aleat.genSong() will generate a song based on the current settings and return a string
+encoding that song.  The parameter sent to aleat.genSong() specifies the algorithm to
+be used.
 
 Currently, the string uses the musicpad notation developed by loic prot
 (http://l01c.ouvaton.org/musicpad-help.html).  When this string is posted to his

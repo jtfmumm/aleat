@@ -6,3 +6,4 @@ MarkovChainer.pde
 *.swo
 *.old
 musicpad.cgi
+/cgi-bin

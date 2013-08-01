@@ -17,8 +17,8 @@ parameters for generation, but these will be expanded to include:
 
 ##Instructions
 
-genSong() will return a string encoding a song based on the current settings.
-The parameter sent to genSong() specifies the algorithm to be used.
+aleat.genSong() will return a string encoding a song based on the current settings.
+The parameter sent to aleat.genSong() specifies the algorithm to be used.
 
 Currently, the string uses the musicpad notation developed by loic prot
 (http://l01c.ouvaton.org/musicpad-help.html).  When this string is posted to his
@@ -29,9 +29,9 @@ A test interface for aleat is provided in aleat-test-interface.js and index.html
 
 ###Algorithms
 
-genMarkov: Generates a song based on a Markov matrix and a scale.
+aleat.genMarkov: Generates a song based on a Markov matrix and a scale.
 
-genRep: Generates a song based on repeating a single note with varying note values.
+aleat.genRep: Generates a song based on repeating a single note with varying note values.
 
 ###Settings
 

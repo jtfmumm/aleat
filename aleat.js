@@ -5,7 +5,7 @@
 //    <jtfmumm{at}gmail{dot}com>
 //    http://github.com/jtfmumm/aleat
 
-//  Functions should eventually be namespaced to aleat.
+'use strict';
 
 var aleat = {
     //General settings with defaults
@@ -82,7 +82,7 @@ var aleat = {
 };
 
 //Change settings based on user input
-function applyStyle() {
+aleat.applyStyle = function() {
     var i, n,
         scale = aleat.scale,
         style = aleat.style,
@@ -102,30 +102,31 @@ function applyStyle() {
     aleat.scaleRow = aleat.scales[scale].scaleRow.slice();
     //Apply style settings
     aleat.noteValues = aleat.styles[style].noteValues.slice();
-}
+};
 
 //Main song generation code
-function genSong(algo) {
+aleat.genSong = function(algo) {
     var song = [],
         songFinal;
 
-    applyStyle();
+    aleat.applyStyle();
     song = algo();
-    song.unshift(addTempo());
+    song.unshift(aleat.addTempo());
 
-    return songFinal = song.join(' ');
-}
+    songFinal = song.join(' ');
+    return songFinal;
+};
 
 //Generates a sequence of the same note with varying note values
-function genRep() {
+aleat.genRep = function() {
     var i,
         rolledNoteValue,
         curNoteValue = 0,
         _song = [];
     while (aleat.parts > 0) {
         for (i = 0; i < aleat.duration * 12; i++) {
-            rolledNoteValue = changeNoteValue();
-            if (rolledNoteValue != curNoteValue) {
+            rolledNoteValue = aleat.changeNoteValue();
+            if (rolledNoteValue !== curNoteValue) {
                 curNoteValue = rolledNoteValue;
                 _song.push('o/' + curNoteValue);
             }
@@ -136,10 +137,10 @@ function genRep() {
     }
 
     return _song;
-}
+};
 
 //Generates a song using a supplied Markov grid and scale (scaleRow)
-function genMarkov() {
+aleat.genMarkov = function() {
     var i,
         markovState = 0,
         curNoteValue = 0,
@@ -148,39 +149,39 @@ function genMarkov() {
     while (aleat.parts > 0) {
         for (i = 0; i < (aleat.duration * 12); i++) {
             //change note value
-            rolledNoteValue = changeNoteValue();
-            if (rolledNoteValue != curNoteValue) {
+            rolledNoteValue = aleat.changeNoteValue();
+            if (rolledNoteValue !== curNoteValue) {
                 curNoteValue = rolledNoteValue;
                 _song.push('o/' + curNoteValue);
             }
             //add markov state to song
             _song.push(aleat.transposition[aleat.scaleRow[markovState]]);
             //change markov state
-            markovState = changeMarkovState(markovState);
+            markovState = aleat.changeMarkovState(markovState);
         }
         _song.push('|');
         aleat.parts--;
     }
     return _song;
-}
+};
 
-function addTempo() {
+aleat.addTempo = function() {
     return 'tempo' + aleat.tempo;
-}
+};
 
-function changeNoteValue() {
+aleat.changeNoteValue = function() {
     var roll;
 
-    roll = rand(0, aleat.noteValues.length - 1);
+    roll = aleat.rand(0, aleat.noteValues.length - 1);
 
     return aleat.noteValues[roll];
-}
+};
 
-function changeMarkovState(markovState) {
+aleat.changeMarkovState = function(markovState) {
     var roll, i,
         range = 0;
 
-    roll = rand(0, 100);
+    roll = aleat.rand(0, 100);
     for(i = 0; i < aleat.markovGrid[0].length; i++) {
         range += aleat.markovGrid[markovState][i];
         if (roll <= range) {
@@ -188,16 +189,15 @@ function changeMarkovState(markovState) {
         }
     }
     return i;
-}
+};
 
 //
 // UTILITIES
 //
-function rand(from, to) {
+aleat.rand= function(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
-}
+};
 
-function test() {alert('hi');}
 
 
 

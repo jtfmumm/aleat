@@ -25,11 +25,11 @@
         aleat.style = $('#style').val();
         aleat.parts = $('#parts').val();
         if ($('#algorithm').val() === 'markov') {
-            songSubmit = genSong(genMarkov);
+            songSubmit = aleat.genSong(aleat.genMarkov);
         } else if ($('#algorithm').val() === 'rep') {
-            songSubmit = genSong(genRep);
+            songSubmit = aleat.genSong(aleat.genRep);
         } else {
-            songSubmit = genSong(genMarkov);
+            songSubmit = aleat.genSong(aleat.genMarkov);
         }
         $('#inputBox').html(songSubmit);
 

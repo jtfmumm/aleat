@@ -4,7 +4,7 @@
 (function testRun() {
     $('#genButton').click(function() {
         populateSettings();
-        submitto('generate', '/cgi-bin/musicpad.cgi')
+        submitto('generate', 'http://l01c.ouvaton.org/cgi-bin/musicpad.cgi')
     });
 
     $('#algorithm').change(function() {

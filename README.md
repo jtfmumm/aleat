@@ -1,4 +1,4 @@
-#alea
+#aleat
 ##An algorithmic music generator
 
 v0.01
@@ -20,12 +20,12 @@ parameters for generation, but these will be expanded to include:
 genSong(algo) will return a string encoding a song based on the current settings.
 The parameter sent to genSong() specifies the algorithm to be used.
 
-Currently, the string uses the musicPad notation developed by loic prot
+Currently, the string uses the musicpad notation developed by loic prot
 (http://l01c.ouvaton.org/musicpad-help.html).  When this string is posted to his
-musicpad.cgi script, it will be converted into a MIDI file.  His script is included
-in /cgi-bin/.
+musicpad script, it will be converted into a MIDI file.  His script is found at
+http://l01c.ouvaton.org/musicpad.cgi.
 
-A test interface is provided in aleat-test-interface.js and index.html.
+A test interface for aleat is provided in aleat-test-interface.js and index.html.
 
 ###Algorithms
 

@@ -1,5 +1,5 @@
 #aleat
-##An algorithmic music generator
+###An algorithmic music generator
 
 v0.01
 

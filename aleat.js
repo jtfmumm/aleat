@@ -7,6 +7,10 @@
 
 'use strict';
 
+//
+//SETTINGS
+//
+
 var aleat = {
     //General settings with defaults
     tempo: 120,
@@ -81,28 +85,9 @@ var aleat = {
 
 };
 
-//Change settings based on user input
-aleat.applyStyle = function() {
-    var i, n,
-        scale = aleat.scale,
-        style = aleat.style,
-        tempTones = [];
-
-    //Apply transposition
-    //come back: there's a bug here for rootTone values over 0
-    for (i = aleat.rootTone; i < (aleat.rootTone + 12); i++) {
-        n = i % 12;
-        tempTones.push(aleat.twelveTones[n]);
-    }
-
-    aleat.transposition = tempTones.slice();
-
-    //Apply scale settings
-    aleat.markovGrid = aleat.scales[scale].grid.slice();
-    aleat.scaleRow = aleat.scales[scale].scaleRow.slice();
-    //Apply style settings
-    aleat.noteValues = aleat.styles[style].noteValues.slice();
-};
+//
+//SONG GENERATION
+//
 
 //Main song generation code
 aleat.genSong = function(algo) {
@@ -123,6 +108,7 @@ aleat.genRep = function() {
         rolledNoteValue,
         curNoteValue = 0,
         _song = [];
+
     while (aleat.parts > 0) {
         for (i = 0; i < aleat.duration * 12; i++) {
             rolledNoteValue = aleat.changeNoteValue();
@@ -146,6 +132,7 @@ aleat.genMarkov = function() {
         curNoteValue = 0,
         rolledNoteValue,
         _song = [];
+
     while (aleat.parts > 0) {
         for (i = 0; i < (aleat.duration * 12); i++) {
             //change note value
@@ -163,6 +150,33 @@ aleat.genMarkov = function() {
         aleat.parts--;
     }
     return _song;
+};
+
+//
+//GENERATION HELPERS
+//
+
+//Change settings based on user input
+aleat.applyStyle = function() {
+    var i, n,
+        scale = aleat.scale,
+        style = aleat.style,
+        tempTones = [];
+
+    //Apply transposition
+    //come back: there's a bug here for rootTone values over 0
+    for (i = aleat.rootTone; i < (aleat.rootTone + 12); i++) {
+        n = i % 12;
+        tempTones.push(aleat.twelveTones[n]);
+    }
+
+    aleat.transposition = tempTones.slice();
+
+    //Apply scale settings
+    aleat.markovGrid = aleat.scales[scale].grid.slice();
+    aleat.scaleRow = aleat.scales[scale].scaleRow.slice();
+    //Apply style settings
+    aleat.noteValues = aleat.styles[style].noteValues.slice();
 };
 
 aleat.addTempo = function() {
@@ -194,6 +208,7 @@ aleat.changeMarkovState = function(markovState) {
 //
 // UTILITIES
 //
+
 aleat.rand= function(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
 };

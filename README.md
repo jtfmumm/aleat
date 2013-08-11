@@ -3,7 +3,7 @@
 
 v0.01
 
-To see aleat in action, visit http://www.jtfmumm.com.
+To see aleat in action, visit http://jtfmumm.com.
 
 This is a very early stage of the project.  There are only a few
 parameters for generation, but these will be expanded to include:
@@ -45,6 +45,7 @@ aleat.scale: the current scale and related Markov grid.  Current choices are mPe
 and majorFolk.
 
 aleat.style: the playing style.  Currently changes the odds of a note taking a certain value.
+Current choices are lead, bass, and crazy.
 
 aleat.parts: the number of parts to be generated for the song.
 

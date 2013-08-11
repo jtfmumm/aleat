@@ -18,9 +18,12 @@ var aleat = {
     twelveTones: ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
     transposition: ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
     rootTone: 0,
+    instrument: 1,
+    range: 4,
     parts: 4,
     scale: 'mPenta',
     style: 'lead',
+    curPart: 0,
 
     //Initial scale and style settings
     noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '16', '16', '2'],
@@ -33,10 +36,75 @@ var aleat = {
     ],
     scaleRow: [0, 3, 5, 7, 10],
 
+    //Options object
+    options: {
+        instrument: [],
+        range: [],
+        scale: [],
+        style: [],
+        rootTone: []
+        //algo: []
+    },
+
+    //Algorithm names
+    algos: ['Markov', 'Repetitive'],
+
+    tones: {
+        0: {
+            name: 'c',
+            value: 0
+        },
+        1: {
+            name: 'c#',
+            value: 1
+        },
+        2: {
+            name: 'd',
+            value: 2
+        },
+        3: {
+            name: 'd#',
+            value: 3
+        },
+        4: {
+            name: 'e',
+            value: 4
+        },
+        5: {
+            name: 'f',
+            value: 5
+        },
+        6: {
+            name: 'f#',
+            value: 6
+        },
+        7: {
+            name: 'g',
+            value: 7
+        },
+        8: {
+            name: 'g#',
+            value: 8
+        },
+        9: {
+            name: 'a',
+            value: 9
+        },
+        10: {
+            name: 'a#',
+            value: 10
+        },
+        11: {
+            name: 'b',
+            value: 11
+        }
+    },
+
     //Scale presets
     scales: {
         //scale-grid combinations
         mPenta: {
+            name: 'Minor Pentatonic',
             grid: [
                 [5, 30, 20, 20, 25], //state 0 (total 100%)
                 [25, 5, 30, 20, 20], //state 1 (total 100%)
@@ -47,6 +115,7 @@ var aleat = {
             scaleRow: [0, 3, 5, 7, 10]
         },
         majPenta: {
+            name: 'Major Pentatonic',
             grid: [
                 [5, 30, 20, 20, 25], //state 0 (total 100%)
                 [25, 5, 30, 20, 20], //state 1 (total 100%)
@@ -57,6 +126,7 @@ var aleat = {
             scaleRow: [0, 2, 4, 7, 9]
         },
         majorFolk: {
+            name: 'Major Folk',
             grid: [
                 [30, 22, 9, 0, 20, 5, 14],      //state 0 (total 100%)
                 [35, 19, 24, 6, 10, 0, 6],      //state 1 (total 100%)
@@ -73,16 +143,74 @@ var aleat = {
     //Playing style presets
     styles: {
         lead: {
+            name: 'Lead',
             noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '16', '16', '2']
         },
         bass: {
+            name: 'Bass',
             noteValues: ['4', '4', '4', '4', '4', '4', '4', '4', '8', '8', '8', '8', '2', '2', '2']
         },
         crazy: {
+            name: 'Crazy',
             noteValues: ['5', '5', '5', '5', '7', '7', '7', '7', '17', '17', '17', '17', '3', '3']
         }
-    }
+    },
 
+    //MIDI Instruments
+    instruments: {
+        1: {
+            name: 'Piano'
+        },
+        7: {
+            name: 'Harpsichord'
+        },
+        19: {
+            name: 'Organ'
+        },
+        33: {
+            name: 'Bass'
+        },
+        41: {
+            name: 'Violin'
+        },
+        43: {
+            name: 'Cello'
+        },
+        81: {
+            name: 'Square Wave'
+        },
+        82: {
+            name: 'Saw Wave'
+        },
+        89: {
+            name: 'Pad'
+        },
+        105: {
+            name: 'Sitar'
+        },
+        113: {
+            name: 'Bell'
+        }
+    },
+
+    ranges: {
+        soprano: {
+            name: 'Soprano',
+            range: 5 //[c4, c6]
+        },
+        alto: {
+            name: 'Contralto',
+            range: 4 //[f3, f5]
+        },
+        tenor: {
+            name: 'Tenor',
+            range: 3 //[c3, c5]
+        },
+        bass: {
+            name: 'Bass',
+            range: 2 //[f2, f4]
+        }
+    }
 };
 
 //
@@ -94,11 +222,13 @@ aleat.genSong = function(algo) {
     var song = [],
         songFinal;
 
-    aleat.applyStyle();
+    aleat.applyStyle(aleat.curPart);
+
     song = algo();
     song.unshift(aleat.addTempo());
 
     songFinal = song.join(' ');
+
     return songFinal;
 };
 
@@ -110,16 +240,21 @@ aleat.genRep = function() {
         _song = [];
 
     while (aleat.parts > 0) {
+        aleat.applyStyle(aleat.curPart);
+        _song.push('ch' + aleat.curPart);
+        _song.push('i' + aleat.instrument);
+
         for (i = 0; i < aleat.duration * 12; i++) {
             rolledNoteValue = aleat.changeNoteValue();
             if (rolledNoteValue !== curNoteValue) {
                 curNoteValue = rolledNoteValue;
                 _song.push('o/' + curNoteValue);
             }
-            _song.push(aleat.transposition[0]);
+            _song.push(aleat.transposition[0] + aleat.range);
         }
         _song.push('|');
         aleat.parts--;
+        aleat.curPart++;
     }
 
     return _song;
@@ -134,6 +269,10 @@ aleat.genMarkov = function() {
         _song = [];
 
     while (aleat.parts > 0) {
+        aleat.applyStyle(aleat.curPart);
+        _song.push('ch' + aleat.curPart);
+        _song.push('i' + aleat.instrument);
+
         for (i = 0; i < (aleat.duration * 12); i++) {
             //change note value
             rolledNoteValue = aleat.changeNoteValue();
@@ -142,12 +281,13 @@ aleat.genMarkov = function() {
                 _song.push('o/' + curNoteValue);
             }
             //add markov state to song
-            _song.push(aleat.transposition[aleat.scaleRow[markovState]]);
+            _song.push(aleat.transposition[aleat.scaleRow[markovState]] + aleat.range);
             //change markov state
             markovState = aleat.changeMarkovState(markovState);
         }
         _song.push('|');
         aleat.parts--;
+        aleat.curPart++;
     }
     return _song;
 };
@@ -156,12 +296,36 @@ aleat.genMarkov = function() {
 //GENERATION HELPERS
 //
 
+//Re-initialize aleat.options
+aleat.reInit = function() {
+    aleat.options.rootTone = [];
+    aleat.options.scale = [];
+    aleat.options.style = [];
+    aleat.options.algo = [];
+    aleat.options.range = [];
+    aleat.options.instrument = [];
+    aleat.curPart = 0;
+
+};
+
 //Change settings based on user input
-aleat.applyStyle = function() {
+aleat.applyStyle = function(cur) {
     var i, n,
-        scale = aleat.scale,
-        style = aleat.style,
+        scale,
+        style,
         tempTones = [];
+
+    aleat.style = aleat.options.style[cur];
+    aleat.scale = aleat.options.scale[cur];
+    aleat.rootTone = aleat.options.rootTone[cur];
+    aleat.instrument = aleat.options.instrument[cur];
+
+    //Set range
+    var tempRange = aleat.options.range[cur];
+    aleat.range = aleat.ranges[tempRange].range;
+
+    scale = aleat.scale;
+    style = aleat.style;
 
     //Apply transposition
     //come back: there's a bug here for rootTone values over 0
@@ -177,6 +341,12 @@ aleat.applyStyle = function() {
     aleat.scaleRow = aleat.scales[scale].scaleRow.slice();
     //Apply style settings
     aleat.noteValues = aleat.styles[style].noteValues.slice();
+};
+
+aleat.updateOptions = function(cur) {
+    aleat.style = aleat.options.style[cur];
+    aleat.scale = aleat.options.scale[cur];
+    aleat.rootTone = aleat.options.rootTone[cur];
 };
 
 aleat.addTempo = function() {

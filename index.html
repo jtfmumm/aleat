@@ -3,21 +3,22 @@
 
 <head>
     <title>aleat</title>
+    <LINK href="aleat-test-interface.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <h1>aleat: algorithmic music generator</h1>
 
     <form action='http://l01c.ouvaton.org/cgi-bin/musicpad.cgi' name=musicpad method=post>
-        <ul style='list-style-type: none'>
+        <ul style='list-style-type: none' id='parameters'>
             <li><label for='tempo'>Tempo:</label>
                 <input type='text' id='tempo' value='120'></li>
             <li><label for='duration'>Duration (in cycles):</label>
                 <input type='text' id='duration' value='6'></li>
             <li><label for='algorithm'>Algorithm:</label>
                 <select id='algorithm'>
-                    <option value='markov'>Markov Chain</option>
-                    <option value='rep'>Repetitive</option>
+                    <option value='Markov'>Markov</option>
+                    <option value='Repetitive'>Repetitive</option>
                 </select></li>
             <li class='scales'><label for='scale'>Scale:</label>
                 <select id='scale'>
@@ -31,18 +32,8 @@
                     <option value='bass'>Bass</option>
                     <option value='crazy'>Crazy</option>
                 </select></li>
-            <li><label for='parts'># of Parts:</label>
-                <select id='parts'>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4' selected>4</option>
-                    <option value='5'>5</option>
-                    <option value='6'>6</option>
-                    <option value='7'>7</option>
-                    <option value='8'>8</option>
-                    <option value='9'>9</option>
-                    <option value='10'>10</option>
+            <li><label for='instrument'>Instrument:</label>
+                <select id='instrument'>
                 </select></li>
             <li><label for='rootTone'>Root Note:</label>
                 <select id='rootTone'>
@@ -59,6 +50,24 @@
                     <option value='10'>a#</option>
                     <option value='11'>b</option>
                 </select></li>
+            <br><br>
+
+            <li><label for='parts'># of Parts:</label>
+                <select id='parts'>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4' selected>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                </select></li>
+            <hr id='insertParts'>
+
+            <!-- Dynamically insert part menus here -->
 
             <input type='submit' value='Generate' id='genButton'>
         </ul>
@@ -71,7 +80,151 @@
     </form>
 
     <script src='lib/jquery-1.10.2.js'></script>
+    <script src='lib/underscore.js'></script>
     <script src='aleat.js'></script>
     <script src='aleat-test-interface.js'></script>
+
+
+    <!-- Start of StatCounter Code for Default Guide -->
+    <script type="text/javascript">
+        var sc_project=9144222;
+        var sc_invisible=1;
+        var sc_security="1b171e70";
+        var scJsHost = (("https:" == document.location.protocol) ?
+                "https://secure." : "http://www.");
+        document.write("<sc"+"ript type='text/javascript' src='" +
+                scJsHost+
+                "statcounter.com/counter/counter.js'></"+"script>");
+    </script>
+    <noscript><div class="statcounter"><a title="site stats"
+                                          href="http://statcounter.com/" target="_blank"><img
+            class="statcounter"
+            src="http://c.statcounter.com/9144222/0/1b171e70/1/"
+            alt="site stats"></a></div></noscript>
+    <!-- End of StatCounter Code for Default Guide -->
 </body>
 </html>
+
+<!--
+<li class='parts part01'><label for='part01'>Part 01:</label>
+<ul id='part01' style='list-style-type: none' class='horizontal'>
+<li><label for='01inst'>Instrument:</label>
+    <select id='01inst' class='instOpts'></select></li>
+<li><label for='01style'>Style:</label>
+<select id='01style' class='styleOpts'></select></li>
+ <li><label for='01scale'>Scale:</label>
+<select id='01scale' class='scaleOpts'></select></li>
+ <li><label for='01algo'>Algorithms:</label>
+<select id='01algo' class='algoOpts'></select></li>
+ <li><label for='01root'>Root:</label>
+<select id='01root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part02'><label for='part02'>Part 02:</label>
+<ul id='part02' style='list-style-type: none' class='horizontal'>
+<li><label for='02style'>Style:</label>
+<select id='02style' class='styleOpts'></select></li>
+ <li><label for='02scale'>Scale:</label>
+<select id='02scale' class='scaleOpts'></select></li>
+ <li><label for='02algo'>Algorithms:</label>
+<select id='02algo' class='algoOpts'></select></li>
+ <li><label for='02root'>Root:</label>
+<select id='02root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part03'><label for='part03'>Part 03:</label>
+<ul id='part03' style='list-style-type: none' class='horizontal'>
+<li><label for='03style'>Style:</label>
+<select id='03style' class='styleOpts'></select></li>
+ <li><label for='03scale'>Scale:</label>
+<select id='03scale' class='scaleOpts'></select></li>
+ <li><label for='03algo'>Algorithms:</label>
+<select id='03algo' class='algoOpts'></select></li>
+ <li><label for='03root'>Root:</label>
+<select id='03root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part04'><label for='part04'>Part 04:</label>
+<ul id='part04' style='list-style-type: none' class='horizontal'>
+<li><label for='04style'>Style:</label>
+<select id='04style' class='styleOpts'></select></li>
+ <li><label for='04scale'>Scale:</label>
+<select id='04scale' class='scaleOpts'></select></li>
+ <li><label for='04algo'>Algorithms:</label>
+<select id='04algo' class='algoOpts'></select></li>
+ <li><label for='04root'>Root:</label>
+<select id='04root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part05'><label for='part05'>Part 05:</label>
+<ul id='part05' style='list-style-type: none' class='horizontal'>
+<li><label for='05style'>Style:</label>
+    <select id='05style' class='styleOpts'></select></li>
+<li><label for='05scale'>Scale:</label>
+    <select id='05scale' class='scaleOpts'></select></li>
+<li><label for='05algo'>Algorithms:</label>
+    <select id='05algo' class='algoOpts'></select></li>
+<li><label for='05root'>Root:</label>
+    <select id='05root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part06'><label for='part06'>Part 06:</label>
+<ul id='part06' style='list-style-type: none' class='horizontal'>
+<li><label for='06style'>Style:</label>
+    <select id='06style' class='styleOpts'></select></li>
+<li><label for='06scale'>Scale:</label>
+    <select id='06scale' class='scaleOpts'></select></li>
+<li><label for='06algo'>Algorithms:</label>
+    <select id='06algo' class='algoOpts'></select></li>
+<li><label for='06root'>Root:</label>
+    <select id='06root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part07'><label for='part07'>Part 07:</label>
+<ul id='part07' style='list-style-type: none' class='horizontal'>
+<li><label for='07style'>Style:</label>
+    <select id='07style' class='styleOpts'></select></li>
+<li><label for='07scale'>Scale:</label>
+    <select id='07scale' class='scaleOpts'></select></li>
+<li><label for='07algo'>Algorithms:</label>
+    <select id='07algo' class='algoOpts'></select></li>
+<li><label for='07root'>Root:</label>
+    <select id='07root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part08'><label for='part08'>Part 08:</label>
+<ul id='part08' style='list-style-type: none' class='horizontal'>
+<li><label for='08style'>Style:</label>
+    <select id='08style' class='styleOpts'></select></li>
+<li><label for='08scale'>Scale:</label>
+    <select id='08scale' class='scaleOpts'></select></li>
+<li><label for='08algo'>Algorithms:</label>
+    <select id='08algo' class='algoOpts'></select></li>
+<li><label for='08root'>Root:</label>
+    <select id='08root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part09'><label for='part09'>Part 09:</label>
+<ul id='part09' style='list-style-type: none' class='horizontal'>
+<li><label for='09style'>Style:</label>
+    <select id='09style' class='styleOpts'></select></li>
+<li><label for='09scale'>Scale:</label>
+    <select id='09scale' class='scaleOpts'></select></li>
+<li><label for='09algo'>Algorithms:</label>
+    <select id='09algo' class='algoOpts'></select></li>
+<li><label for='09root'>Root:</label>
+    <select id='09root' class='rootOpts'></select></li>
+</ul>
+</li>
+<li class='parts part10'><label for='part10'>Part 10:</label>
+<ul id='part10' style='list-style-type: none' class='horizontal'>
+<li><label for='10style'>Style:</label>
+    <select id='10style' class='styleOpts'></select></li>
+<li><label for='10scale'>Scale:</label>
+    <select id='10scale' class='scaleOpts'></select></li>
+<li><label for='10algo'>Algorithms:</label>
+    <select id='10algo' class='algoOpts'></select></li>
+<li><label for='10root'>Root:</label>
+    <select id='10root' class='rootOpts'></select></li>
+</ul>
+</li>   -->

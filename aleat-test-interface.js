@@ -6,6 +6,17 @@
         populateSettings();
         submitto('generate', 'http://l01c.ouvaton.org/cgi-bin/musicpad.cgi')
     });
+    $('#showAdvanced').click(function() {
+        if ($('#showAdvanced').val() === 'Show Advanced') {
+            $('#advanced').css('display', 'block');
+            $('#showAdvanced').val('Hide Advanced');
+        } else {
+            $('#advanced').css('display', 'none');
+            $('#showAdvanced').val('Show Advanced');
+        }
+    });
+
+
 
     $('#algorithm').change(function() {
         if ($('#algorithm').val() === 'Repetitive') {
@@ -29,6 +40,9 @@
     });
     $('#instrument').change(function() {
         $('.instrumentOpts').val($('#instrument').val());
+    });
+    $('#range').change(function() {
+        $('.rangeOpts').val($('#range').val());
     });
 
     $('#parts').change(function() {
@@ -136,7 +150,7 @@
     var codeList = "<li><label for='<%= thisPart %><%= thisOpt %>'><%= thisLabel %>:</label><select id='<%= thisPart  %><%= thisOpt %>' class='<%= thisOpt %>Opts'></select></li>";
 
     var addParts = function() {
-        var lastEl = 'insertParts';
+        var lastEl = 'advanced';
 
         for (var i = 1; i < 11; i++) {
             var newPart = document.createElement("newPart");
@@ -148,7 +162,7 @@
 
             if (i < 10) {dataObject.thisPart = '0' + i;} else {dataObject.thisPart = i;}
 
-            $('#' + lastEl).after(_.template(startCode, dataObject));
+            $('#' + lastEl).append(_.template(startCode, dataObject));
             lastEl = 'listPart' + dataObject.thisPart;
 
             for (var setting in aleat.options) {
@@ -199,6 +213,43 @@
         }
     };
 
+    var initPage = function() {
+
+            if ($('#algorithm').val() === 'Repetitive') {
+                //$('.scales').css('display', 'none');
+                $('.algoOpts').val('Repetitive');
+            }
+            if ($('#algorithm').val() === 'Markov') {
+                //$('.scales').css('display', 'block');
+                $('.algoOpts').val('Markov');
+            }
+
+            var thisTone = $('#rootTone').val();
+            $('.rootToneOpts').val(thisTone);
+
+            $('.styleOpts').val($('#style').val());
+
+            $('.scaleOpts').val($('#scale').val());
+
+            $('.instrumentOpts').val($('#instrument').val());
+
+            var count = parseInt($('#parts').val());
+            $('.parts').css('display', 'none');
+            var $partEls = $('.parts');
+
+        $('#advanced').css('display', 'none');
+
+
+        for (var i = 1; i < (count + 1); i++) {
+                if (i < 10) {
+                    var j = '0' + i;
+                } else {
+                    j = i;
+                }
+                $('.part' + j).css('display', 'block');
+            }
+    };
+
 
     addParts();
 
@@ -209,15 +260,19 @@
         instSel = $('.instrumentOpts'),
         rootSel = $('.rootToneOpts'),
         globInstSel = $('#instrument');
+        globRangeSel = $('#range');
 
     //alert(aleat.algos instanceof Array);
 
     addOptions(globInstSel, aleat.instruments);
+    addOptions(globRangeSel, aleat.ranges);
     addOptions(instSel, aleat.instruments);
     addOptions(rangeSel, aleat.ranges);
     addOptions(styleSel, aleat.styles);
     addOptions(scaleSel, aleat.scales);
     addOptions(algoSel, aleat.algos);
     addOptions(rootSel, aleat.tones);
+
+    initPage();
 
 }());

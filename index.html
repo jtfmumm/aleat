@@ -35,6 +35,9 @@
             <li><label for='instrument'>Instrument:</label>
                 <select id='instrument'>
                 </select></li>
+             <li><label for='range'>Range:</label>
+                <select id='range'>
+                </select></li>
             <li><label for='rootTone'>Root Note:</label>
                 <select id='rootTone'>
                     <option value='0'>c</option>
@@ -65,11 +68,19 @@
                     <option value='9'>9</option>
                     <option value='10'>10</option>
                 </select></li>
-            <hr id='insertParts'>
+            <br>
 
-            <!-- Dynamically insert part menus here -->
+            <ul style='list-style-type: none' class='horizontal'>
+                <li><input type='submit' value='Generate' id='genButton'></li>
+                <li><input type='button' value='Show Advanced' id='showAdvanced'></li>
+            </ul>
 
-            <input type='submit' value='Generate' id='genButton'>
+            <hr>
+
+            <div id='advanced'>
+                <!-- Dynamically insert part menus here -->
+            </div>
+
         </ul>
         <textarea cols=1 rows=1 id='inputBox' name='string' class='field2' style='visibility: hidden'></textarea>
         <input type=hidden name=btnaction value=''>

@@ -3,7 +3,7 @@
 
 v0.01
 
-To see aleat in action, visit http://www.jtfmumm.com.
+To see aleat in action, visit http://www.jtfmumm.com/aleat.
 
 This is a very early stage of the project.  There are only a few
 parameters for generation, but these will be expanded to include:

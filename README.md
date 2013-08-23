@@ -38,7 +38,7 @@ aleat.genRep: Generates a song based on repeating a single note with varying not
 
 ###Settings
 
-## aleat global settings
+#### aleat global settings
 
 These settings are applied to the current part during generation
 aleat.tempo: the tempo of the song.
@@ -60,7 +60,7 @@ aleat.instrument: the MIDI instrument specified by number.
 
 aleat.range: the range of notes.
 
-## aleat.options object
+#### aleat.options object
 
 This object consists of an array of values for each option.  The array index corresponds to the part for which
 the option will be applied.  Before a new part is added to the song, the aleat global settings are updated using

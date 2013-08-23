@@ -1,12 +1,12 @@
 h1 {
-    color: dodgerblue;
-}
+  color: dodgerblue; }
 
 .horizontal {
-    width: 100%;
-    float: left;
-    margin: 0 0 1em 0;
-    padding: 0;
-    list-style: none; }
+  width: 100%;
+  float: left;
+  margin: 0 0 1em 0;
+  padding: 0;
+  list-style: none; }
+
 .horizontal li {
-    float: left; }
+  float: left; }

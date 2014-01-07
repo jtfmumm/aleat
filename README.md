@@ -5,8 +5,8 @@ v0.01
 
 To see aleat in action, visit http://jtfmumm.com/aleat.
 
-This is a very early stage of the project.  There are only a few
-parameters for generation, but these will be expanded to include:
+This is an early stage of the project.  The parameters for generation
+will be expanded to include:
 
 - twelve tone compositions
 - a broader selection of composition styles relying on Markov chains
